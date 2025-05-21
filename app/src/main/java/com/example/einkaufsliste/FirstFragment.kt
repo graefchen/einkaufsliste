@@ -23,9 +23,8 @@ private var _binding: FragmentFirstBinding? = null
         savedInstanceState: Bundle?
     ): View {
 
-      _binding = FragmentFirstBinding.inflate(inflater, container, false)
-      return binding.root
-
+        _binding = FragmentFirstBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -36,7 +35,7 @@ private var _binding: FragmentFirstBinding? = null
         }
     }
 
-override fun onDestroyView() {
+    override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }

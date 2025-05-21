@@ -23,8 +23,8 @@ private var _binding: FragmentSecondBinding? = null
         savedInstanceState: Bundle?
     ): View {
 
-      _binding = FragmentSecondBinding.inflate(inflater, container, false)
-      return binding.root
+        _binding = FragmentSecondBinding.inflate(inflater, container, false)
+        return binding.root
 
     }
 
@@ -35,7 +35,8 @@ private var _binding: FragmentSecondBinding? = null
             findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
         }
     }
-override fun onDestroyView() {
+
+    override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
