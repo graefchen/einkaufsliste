@@ -9,7 +9,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import com.example.einkaufsliste.R
 
-// NO. 1 Ressource: https://developer.android.com/develop/ui/views/components/dialogs
+// NO. 1 Resource: https://developer.android.com/develop/ui/views/components/dialogs
 
 class ItemAddDialog : DialogFragment() {
     // Until "onCreateDialog" we have functions that allow the Parent
@@ -17,8 +17,7 @@ class ItemAddDialog : DialogFragment() {
     internal lateinit var listener: ItemAddDialogListener
 
     interface ItemAddDialogListener {
-        fun onDialogPositiveClick(dialog: DialogFragment)
-        fun onDialogNegativeClick(dialog: DialogFragment)
+        fun onDialogPositiveClick(item: String)
     }
 
     override fun onAttach(context: Context) {
@@ -33,21 +32,25 @@ class ItemAddDialog : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let {
+            // works with this line below
+            // val inputEditTextField = EditText(requireActivity())
             val builder = AlertDialog.Builder(it)
             val inflater = requireActivity().layoutInflater
+            val view = inflater.inflate(R.layout.dialog_item_add, null)
+            val inputTextField = view?.findViewById<EditText>(R.id.item_add)
             builder.setTitle("Which Item would you like to add?")
-                .setView(inflater.inflate(R.layout.dialog_item_add, null))
-                .setPositiveButton("Start",
+                .setView(view)
+                // .setView(inputEditTextField)
+                .setPositiveButton("Add",
                     DialogInterface.OnClickListener { dialog, id ->
                         // Start
-                        val item = inflater.inflate(R.layout.dialog_item_add, null)?.findViewById<EditText>(R.id.item_add)
-                        println("INFO: ADD ITEM: ${item?.editableText.toString()}")
-                        listener.onDialogPositiveClick(this)
+                        val input = inputTextField?.text.toString()
+                        listener.onDialogPositiveClick(input)
                 })
                 .setNegativeButton("Cancel",
                     DialogInterface.OnClickListener { dialog, id ->
                         // Canceled
-                        listener.onDialogNegativeClick(this)
+                        getDialog()?.cancel()
                 })
             builder.create()
         } ?: throw IllegalStateException("Activity can not be null")

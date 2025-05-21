@@ -10,7 +10,6 @@ import com.example.einkaufsliste.dialogs.ItemAddDialog
 
 class MainActivity : AppCompatActivity(), ItemAddDialog.ItemAddDialogListener {
 
-//    private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,28 +20,16 @@ class MainActivity : AppCompatActivity(), ItemAddDialog.ItemAddDialogListener {
 
         setSupportActionBar(binding.toolbar)
 
-//        val navController = findNavController(R.id.nav_host_fragment_content_main)
-//        appBarConfiguration = AppBarConfiguration(navController.graph)
-//        setupActionBarWithNavController(navController, appBarConfiguration)
-
         binding.fab.setOnClickListener { view ->
             ItemAddDialog().show(supportFragmentManager, "ITEM_DIALOG")
-//            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                    .setAction("Action", null)
-//                    .setAnchorView(R.id.fab).show()
         }
     }
 
-    override fun onDialogPositiveClick(dialog: DialogFragment) {
+    override fun onDialogPositiveClick(item: String) {
         // User taps the dialog's positive button.
-        // print(dialog)
-        println("User pressed the positive button.")
-    }
-
-    override fun onDialogNegativeClick(dialog: DialogFragment) {
-        // User taps the dialog's negative button.
-        // print(dialog)
-        println("User pressed the negative button.")
+        println("User added $item.")
+        // TODO: Make snackbar as User feedback...
+        // TODO: Add the item to a list (or even better a Database)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -60,10 +47,4 @@ class MainActivity : AppCompatActivity(), ItemAddDialog.ItemAddDialogListener {
             else -> super.onOptionsItemSelected(item)
         }
     }
-
-//    override fun onSupportNavigateUp(): Boolean {
-//        val navController = findNavController(R.id.nav_host_fragment_content_main)
-//        return navController.navigateUp(appBarConfiguration)
-//            || super.onSupportNavigateUp()
-//    }
 }
