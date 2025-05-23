@@ -24,22 +24,23 @@ class ItemRemoveDialog(pos: Int, n: String) : DialogFragment() {
         try {
             listener = context as ItemRemoveDialogListener
         } catch (_: ClassCastException) {
-                throw ClassCastException(("$context must implement ItemAddDialogListener"))
-            }
+            throw ClassCastException(("$context must implement ItemAddDialogListener"))
         }
+    }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let {
             val builder = AlertDialog.Builder(it)
-            builder.setMessage("Do you really wanna remove ${name}?")
+            builder.setMessage("Do you really want to remove ${name}?")
                 .setPositiveButton("Remove",
                     DialogInterface.OnClickListener { dialog, id ->
-                        // Start
+                        // Removing an item
+                        // here we call the function on the listener
+                        // the listener can be found in "MainActivity"
                         listener.onItemRemoveDialogPositiveClick(position, name)
                     })
                 .setNegativeButton("Cancel",
                     DialogInterface.OnClickListener { dialog, id ->
-                        // Canceled
                         getDialog()?.cancel()
                     })
             builder.create()

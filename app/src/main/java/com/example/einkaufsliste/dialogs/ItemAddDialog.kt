@@ -31,7 +31,8 @@ class ItemAddDialog : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let {
-            // works with this line below
+            // here we build the whole dialog
+            // as reference see here: https://developer.android.com/develop/ui/views/components/dialogs
             val builder = AlertDialog.Builder(it)
             val inflater = requireActivity().layoutInflater
             val view = inflater.inflate(R.layout.dialog_item_add, null)
@@ -40,13 +41,14 @@ class ItemAddDialog : DialogFragment() {
                 .setView(view)
                 .setPositiveButton("Add",
                     DialogInterface.OnClickListener { dialog, id ->
-                        // Start
+                        // Adding an Item
                         val input = inputTextField?.text.toString()
+                        // here we call the function on the listener
+                        // the listener can be found in "MainActivity"
                         listener.onItemAddDialogPositiveClick(input)
                 })
                 .setNegativeButton("Cancel",
                     DialogInterface.OnClickListener { dialog, id ->
-                        // Canceled
                         getDialog()?.cancel()
                 })
             builder.create()

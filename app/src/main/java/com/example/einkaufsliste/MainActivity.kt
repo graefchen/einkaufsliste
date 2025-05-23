@@ -15,42 +15,46 @@ class MainActivity : AppCompatActivity(), ItemAddDialog.ItemAddDialogListener, I
     private lateinit var binding: ActivityMainBinding
     private lateinit var adapter: ArrayAdapter<String>
 
-    private val shopping_list = mutableListOf<String>()
+    // using a simple list (i was to lazy to use a db/sqlite)
+    private val shoppingList = mutableListOf<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        // Boring initialisation stuff ...
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         setSupportActionBar(binding.toolbar)
 
+        // creating the listview and adding an array adapter to it with all the
+        // data from the shoppingList
         val listView = findViewById<ListView>(R.id.einkaufsliste_items)
-
-        adapter = ArrayAdapter(this, R.layout.einkaufsliste_item, R.id.item_text, shopping_list)
-
+        adapter = ArrayAdapter(this, R.layout.einkaufsliste_item, R.id.item_text, shoppingList)
         listView.adapter = adapter
 
-        binding.fab.setOnClickListener { view ->
+        // Adding the "onClickListener" on the fab (the "+" in the bottom right corner)
+        binding.fab.setOnClickListener { _ ->
             ItemAddDialog().show(supportFragmentManager, "ITEM_DIALOG")
         }
 
+        // Adding the "onClickListener" on every (new) list item
         listView.setOnItemClickListener { _, _, position, _ ->
-            ItemRemoveDialog(position, shopping_list[position]).show(supportFragmentManager, "ITEM_DIALOG")
+            ItemRemoveDialog(position, shoppingList[position]).show(supportFragmentManager, "ITEM_DIALOG")
         }
     }
 
+    // What happens when we press the positive click on the "add dialog"
     override fun onItemAddDialogPositiveClick(item: String) {
-        // User taps the dialog's positive button.
         println("User added $item.")
-        shopping_list.add(item)
+        shoppingList.add(item)
 
         adapter.notifyDataSetChanged()
         Toast.makeText(this, "Added $item to the list", Toast.LENGTH_SHORT).show()
     }
 
+    // What happens when we press the positive click on the "remove dialog"
     override fun onItemRemoveDialogPositiveClick(position: Int, item: String) {
-        shopping_list.removeAt(position)
+        shoppingList.removeAt(position)
         adapter.notifyDataSetChanged()
 
         Toast.makeText(this, "Removed $item from the list", Toast.LENGTH_SHORT).show()
@@ -60,5 +64,4 @@ class MainActivity : AppCompatActivity(), ItemAddDialog.ItemAddDialogListener, I
         menuInflater.inflate(R.menu.menu_main, menu)
         return true
     }
-
 }
