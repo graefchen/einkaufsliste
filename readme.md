@@ -28,3 +28,9 @@ Die APK Datei kann unter dem apk Ordner gefunden werden.
 - https://developer.android.com/develop/ui/views/components/dialogs
 - https://stackoverflow.com/a/65991711
 - https://developer.android.com/guide/topics/ui/notifiers/toasts
+
+<div align="center">
+
+https://github.com/user-attachments/assets/387c394f-e663-4f3c-a53a-15619b6032af
+
+</div>
