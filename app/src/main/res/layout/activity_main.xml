@@ -9,15 +9,21 @@
     tools:context=".MainActivity">
 
     <com.google.android.material.appbar.AppBarLayout
-        android:layout_height="wrap_content"
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
-        android:fitsSystemWindows="true"
-        >
+        android:layout_height="720dp"
+        android:fitsSystemWindows="true">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
-            android:layout_width = "match_parent"
-            android:layout_height = "?attr/actionBarSize" />
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize" />
+
+        <ListView
+            android:id="@+id/einkaufsliste_items"
+            android:layout_width="match_parent"
+            android:layout_height="1074dp"
+            android:orientation="vertical" />
 
     </com.google.android.material.appbar.AppBarLayout>
 

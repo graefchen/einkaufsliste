@@ -45,4 +45,5 @@
     </string>
     <string name="submit">Submit</string>
     <string name="item">Item</string>
+    <string name="textview">TextView</string>
 </resources>

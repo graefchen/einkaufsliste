@@ -17,35 +17,32 @@ class ItemAddDialog : DialogFragment() {
     internal lateinit var listener: ItemAddDialogListener
 
     interface ItemAddDialogListener {
-        fun onDialogPositiveClick(item: String)
+        fun onItemAddDialogPositiveClick(item: String)
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         try {
             listener = context as ItemAddDialogListener
-        } catch (e: ClassCastException) {
-            throw ClassCastException((context.toString() +
-                    " must implement ItemAddDialogListener"))
+        } catch (_: ClassCastException) {
+            throw ClassCastException(("$context must implement ItemAddDialogListener"))
         }
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let {
             // works with this line below
-            // val inputEditTextField = EditText(requireActivity())
             val builder = AlertDialog.Builder(it)
             val inflater = requireActivity().layoutInflater
             val view = inflater.inflate(R.layout.dialog_item_add, null)
             val inputTextField = view?.findViewById<EditText>(R.id.item_add)
             builder.setTitle("Which Item would you like to add?")
                 .setView(view)
-                // .setView(inputEditTextField)
                 .setPositiveButton("Add",
                     DialogInterface.OnClickListener { dialog, id ->
                         // Start
                         val input = inputTextField?.text.toString()
-                        listener.onDialogPositiveClick(input)
+                        listener.onItemAddDialogPositiveClick(input)
                 })
                 .setNegativeButton("Cancel",
                     DialogInterface.OnClickListener { dialog, id ->
